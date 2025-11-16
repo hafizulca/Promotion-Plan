@@ -962,6 +962,9 @@
                     <ul class="plan-features">
                         ${planDataContainer.querySelector('ul').innerHTML}
                     </ul>
+                    <p class="text-xs text-slate-500 italic mt-4 mb-4">
+                        *Harga yang dipaparkan adalah anggaran sahaja. Sebut harga rasmi akan disediakan oleh ejen.
+                    </p>
                     <button class="select-btn ${isPopular ? 'popular-btn' : ''}" onclick="selectPlan('${dataKey}')">Pilih Pelan Ini</button>
                 </div>
             `;
@@ -1108,7 +1111,7 @@ Harap dapat hubungi saya segera. Terima kasih.`;
         } 
     }
     function pos(e){ 
-        return e.touches? {x:e.touches[0].clientX, y:e.touches[0].clientY} : {x:e.touches[0].clientX, y:e.clientY}; 
+        return e.touches? {x:e.touches[0].clientX, y:e.touches[0].clientY} : {x:e.clientX, y:e.clientY}; 
     }
     function down(e){ 
         if (!card) return;

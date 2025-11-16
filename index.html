@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pilih Pelan Takaful Dua Peringkat</title>
+    <style>
+        /* CSS untuk Reka Bentuk Dropdown dan Paparan Plan */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .selection-container {
+            max-width: 500px;
+            margin: 0 auto 30px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .selection-container label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #444;
+        }
+
+        #plan-selector, #class-selector {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #f9f9f9;
+        }
+
+        /* Kawasan Output */
+        .details-output {
+            max-width: 500px;
+            margin: 0 auto;
+            min-height: 250px; /* Jaga ruang supaya tidak melompat */
+            text-align: center;
+        }
+
+        .placeholder-text {
+            color: #999;
+            padding-top: 50px;
+            font-style: italic;
+        }
+
+        /* Gaya Kad Plan Yang Dipaparkan */
+        .plan-card {
+            background-color: #fff;
+            border: 2px solid #ddd;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+
+        .plan-card h2 {
+            color: #1a73e8;
+            margin-top: 0;
+            margin-bottom: 5px;
+            font-size: 22px;
+            text-align: center;
+        }
+
+        .plan-card .price {
+            font-size: 28px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+            display: block;
+        }
+
+        .plan-card .tagline {
+            font-style: italic;
+            color: #777;
+            margin-bottom: 15px;
+        }
+
+        .plan-card .features {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 25px;
+        }
+
+        .plan-card .features li {
+            margin-bottom: 8px;
+            color: #444;
+        }
+
+        /* Gaya POPULAR */
+        .plan-card.popular {
+            border-color: #ff9800;
+            box-shadow: 0 0 20px rgba(255, 152, 0, 0.4);
+        }
+
+        .plan-card.popular h2 {
+            color: #ff9800;
+        }
+
+        .plan-card button {
+            background-color: #1a73e8;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .plan-card button:hover {
+            background-color: #0d47a1;
+        }
+
+        .plan-card .popular-btn {
+            background-color: #ff9800;
+        }
+        .plan-card .popular-btn:hover {
+            background-color: #e68900;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Pilih Pelan Takaful Anda</h1>
+    
+    <div class="selection-container">
+        
+        <label for="plan-selector">Sila Pilih Pelan Perlindungan:</label>
+        <select id="plan-selector" onchange="showClassSelector(this.value)">
+            <option value="">-- Pilih Jenis Pelan --</option>
+            <option value="sandar">1. Sandar (Asas)</option>
+            <option value="pagar">2. Pagar (Sederhana)</option>
+            <option value="kubu" data-popular="true">3. Kubu (Pilihan Ramai ⭐)</option>
+            <option value="perisai">4. Perisai (Premium)</option>
+        </select>
+
+        <div id="class-selection-area" style="display: none; margin-top: 15px;">
+            <label for="class-selector">Sila Pilih Kelas:</label>
+            <select id="class-selector" onchange="displayPlanDetails()">
+                <option value="">-- Pilih Gred Kelas --</option>
+                <option value="1">Kelas 1</option>
+                <option value="2">Kelas 2</option>
+                <option value="3">Kelas 3</option>
+                <option value="4">Kelas 4</option>
+            </select>
+        </div>
+    </div>
+
+    <div id="plan-details-output" class="details-output">
+        <p class="placeholder-text">Sila buat pilihan anda dari menu di atas untuk melihat butiran penuh pelan dan harga.</p>
+    </div>
+
+    <div id="plan-data" style="display: none;">
+        
+        <div data-plan-class="sandar-1" data-price="RM 100/bln">
+            <p class="tagline">Sandar K1: Perlindungan Asas Bajet.</p>
+            <ul class="features"><li>✅ Kematian (Asas)</li><li>✅ Kemalangan (Asas)</li><li>❌ Kritikal</li></ul>
+        </div>
+        <div data-plan-class="pagar-2" data-price="RM 180/bln">
+            <p class="tagline">Pagar K2: Ketenangan Fikiran Pilihan Tengah.</p>
+            <ul class="features"><li>✅ Kematian (Sederhana)</li><li>✅ Kritikal (Asas)</li><li>❌ Tunai Hospital</li></ul>
+        </div>
+        
+        <div data-plan-class="kubu-3" data-price="RM 250/bln" data-popular="true">
+            <p class="tagline">Kubu K3: Pilihan Ramai, Nilai Terbaik dan Menyeluruh.</p>
+            <ul class="features"><li>✅ Kematian (Tinggi)</li><li>✅ Kritikal (Penuh)</li><li>✅ Tunai Hospital</li></ul>
+        </div>
+        
+        <div data-plan-class="perisai-4" data-price="RM 350/bln">
+            <p class="tagline">Perisai K4: Jaminan Premium dan Warisan Terbaik.</p>
+            <ul class="features"><li>✅ Kematian (Premium)</li><li>✅ Kritikal (Penuh 2X)</li><li>✅ Tunai Hospital (2X)</li></ul>
+        </div>
+        
+        </div>
+    
+    <script>
+        function clearDetails() {
+            const outputArea = document.getElementById('plan-details-output');
+            outputArea.innerHTML = '<p class="placeholder-text">Sila buat pilihan anda dari menu di atas untuk melihat butiran penuh pelan dan harga.</p>';
+            outputArea.classList.remove('active', 'popular');
+        }
+
+        function showClassSelector(selectedPlan) {
+            const classArea = document.getElementById('class-selection-area');
+            const classSelector = document.getElementById('class-selector');
+
+            clearDetails(); // Kosongkan butiran lama
+
+            if (selectedPlan) {
+                // Tunjukkan dropdown Kelas dan tetapkan semula nilainya
+                classArea.style.display = 'block';
+                classSelector.value = ''; // Reset nilai kelas
+            } else {
+                // Sembunyikan dropdown Kelas jika tiada pelan dipilih
+                classArea.style.display = 'none';
+            }
+        }
+
+        function displayPlanDetails() {
+            const selectedPlan = document.getElementById('plan-selector').value;
+            const selectedClass = document.getElementById('class-selector').value;
+            const outputArea = document.getElementById('plan-details-output');
+            
+            clearDetails(); 
+
+            if (!selectedPlan || !selectedClass) {
+                // Hentikan dan kekal kosong jika salah satu belum dipilih
+                return;
+            }
+
+            // Cari data berdasarkan kombinasi Plan-Kelas (cth: "kubu-3")
+            const dataKey = `${selectedPlan}-${selectedClass}`;
+            const planDataContainer = document.querySelector(`div[data-plan-class="${dataKey}"]`);
+            
+            if (planDataContainer) {
+                // Ambil nama plan dari option dan gabungkan dengan kelas
+                const planNameOption = document.querySelector(`#plan-selector option[value="${selectedPlan}"]`).textContent;
+                const price = planDataContainer.getAttribute('data-price');
+                const isPopular = planDataContainer.getAttribute('data-popular') === 'true';
+
+                // Bina tajuk Plan + Kelas (cth: "3. Kubu (Pilihan Ramai ⭐) - Kelas 3")
+                const fullPlanName = `${planNameOption} - Kelas ${selectedClass}`;
+                
+                // Bina kandungan untuk output
+                let content = `
+                    <div class="plan-card ${isPopular ? 'popular' : ''}">
+                        <h2>${fullPlanName}</h2>
+                        <div class="price">${price}</div>
+                        ${planDataContainer.innerHTML}
+                        <button class="select-btn ${isPopular ? 'popular-btn' : ''}">Pilih Pelan Ini</button>
+                    </div>
+                `;
+                
+                outputArea.innerHTML = content;
+                outputArea.classList.add('active');
+                if (isPopular) {
+                    outputArea.classList.add('popular');
+                } else {
+                    outputArea.classList.remove('popular');
+                }
+            } else {
+                 // Jika kombinasi data tidak wujud
+                outputArea.innerHTML = `<p class="placeholder-text">Butiran Pelan ${dataKey} belum tersedia. Sila pilih kombinasi lain atau hubungi ejen.</p>`;
+            }
+        }
+    </script>
+
+</body>
+</html>
